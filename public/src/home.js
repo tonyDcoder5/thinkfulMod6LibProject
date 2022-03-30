@@ -21,12 +21,8 @@ getBooksBorrowedCount = books => {
 
 // writer a helper function to use for slicing and sorting results for the next few functions that ask for the top 5 results
 _getTop5 = input => {
-  // definte an empty array to store input
-  let result = [];
-  // set value of the array to the input sorted from greatest to lowest based on two input args that are compared for every item in input
-  result = input.sort((sortA, sortB) => sortB.count - sortA.count);
-  // return the result array, cut down to the top 5 items in the array
-  return result.slice(0, 5);
+  // return result of input.sort method that loops through input array and sorts values from greatest to least .count and returns just the top 5 
+  return input.sort((sortA, sortB) => sortB.count - sortA.count).slice(0, 5);
 }
 
 
@@ -61,7 +57,6 @@ getMostCommonGenres = books => {
 
   // return result of helper function call with commGenres array as arg 
   return _getTop5(commGenres);
-  
 }
 
 // write a function that passes in a books arr of book objs and loops the books.borrows.length for each book, then sorts the results from highest to lowest returning only the top 5 
@@ -82,13 +77,19 @@ getMostPopularAuthors = (books, authors) => {
   // define an empty arr to store desired output
   const popAuth = [];
   
-  // use a .forEach method to loop through the books arr
-  books.forEach((book) =>
+  // use a .forEach method to loop through the authors arr
+  authors.forEach((author) =>
   {
-    // define an author variable that holds the value of the authors.find method that loops through the authors arr and returns the value with the auth.id = book.authorId for each book in books.forEach
-    let author = authors.find(auth => (auth.id === book.authorId));
+    // define a variable to store the value of the books.filter method that loops through books arr and returns book objs that have a authorId that = author.id 
+    let authBooks = books.filter((book) => book.authorId === author.id);
+
+    // define a variable to store the value of the authBooks.reduce method that loops through the above arr and returns a sum of the sums of borrows.length for each book in authBooks arr
+    let totalBorrows = authBooks.reduce((total, book) => {
+      return total += book.borrows.length
+    }, 0);
+
     // push output in desired format using template literals to store values of each author output 
-    popAuth.push({name: `${author.name.first} ${author.name.last}`, count: book.borrows.length})
+    popAuth.push({name: `${author.name.first} ${author.name.last}`, count: totalBorrows})
   })
     // return the result of helper function call with popAuth arr as arg
     return _getTop5(popAuth);
