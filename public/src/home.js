@@ -18,13 +18,11 @@ getBooksBorrowedCount = books => {
   return borrowCount.length;
 }
 
-
 // writer a helper function to use for slicing and sorting results for the next few functions that ask for the top 5 results
 _getTop5 = input => {
   // return result of input.sort method that loops through input array and sorts values from greatest to least .count and returns just the top 5 
   return input.sort((sortA, sortB) => sortB.count - sortA.count).slice(0, 5);
 }
-
 
 // write a function that takes in an array of books objects and returns an array of objects containing the top 5 most common occuring genres within the books array 
 getMostCommonGenres = books => {
@@ -95,7 +93,6 @@ getMostPopularAuthors = (books, authors) => {
     return _getTop5(popAuth);
   }
 
- 
 module.exports = {
   getTotalBooksCount,
   getTotalAccountsCount,

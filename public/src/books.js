@@ -33,7 +33,6 @@ partitionBooksByBorrowedStatus = (books) => {
   return result;
 }
 
-
 // write a function that takes in a book obj and an accounts arr and returns an object with the account.id matching the first book.borrow.id index 
 getBorrowersForBook = (book, accounts) => {
   
